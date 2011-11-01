@@ -543,6 +543,22 @@ infrastructure - See http://www.apache.org/dev/cms.html Reading this
 documentation and reviewing the current website code to identify tasks to
 achieve the switch over would be ideal.
 
+*** Investigate the possibility of declaring conflicting dependencies for CPAN modules
+
+Duration: 7 days
+
+Currently the CPAN toolchain doesn't really support any kind of dependency other
+than '>= VERSION'. Specifically, there's no way to declare that one module
+changed incompatibly and that it will break certain other modules that might
+already be installed, or that these modules need to be upgraded to a certain
+version after installing the breaking module.
+
+Module authors came up with several workarounds for this issue, but none of them
+seem be adopted widely or actually fix this issue for users.
+
+Investigate what it'd take to make our module toolchain handle these kinds of
+updates in a more user-friendly way.
+
 * Training
 
 Tasks related to helping others learn more.
