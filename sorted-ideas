@@ -533,6 +533,23 @@ achieve the switch over would be ideal.
 
 Tasks related to helping others learn more.
 
+** Low Difficulty
+
+*** Create a Catalyst Cheat Sheet
+
+Duration: 3 days
+
+Catalyst has quite a big API, but most of the time people only use a tiny subset
+of it. In order to find the tiny subset they actually require for their work,
+they still need to wade through the massive amount of Catalyst documentation.
+
+Having a cheat sheet page would help a lot of users to find what they're after
+more quickly.
+
+It should include at least all the built-in attributes, including all the
+dispatching mechanisms, as well as the most important methods for the request
+context, the request object, and the response object.
+
 ** Medium Difficulty
 
 *** Record Ubic tutorial screencast
