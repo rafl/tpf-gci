@@ -590,6 +590,21 @@ Retell [Ubic::Manual::Intro](https://metacpan.org/module/Ubic::Manual::Intro) in
 video form and put it online.  Requirements: you'll need a mike to record sound;
 previous experience screencast recording software will obviously help.
 
+** High Difficulty
+
+*** Write and record Moose screencasts
+
+Duration: 4 days
+
+Moose has a very rich ecosystem around it, and for many it's hard to keep track
+of what's out there.  The goal of this task is to raise awareness for certain
+very useful but not terribly well known modules in the Moose extension namespace
+MooseX::.
+
+For that, find one or more of these modules, for example by having a chat about
+it with the Moose community, think of a practical use case for it, and produce a
+screencast illustrating how the modules helps solving the task.
+
 * Translation
 
 Tasks related to localization.
