@@ -493,6 +493,20 @@ desc&bug_status=__open__ and pick something that interests them.
 
 Tasks related to studying a problem and recommending solutions.
 
+** Low Difficulty
+
+*** Investigate the viability of including Unicode::GCString in the Perl core
+
+Duration: 5 days
+
+On the Perl 5 Porters list, there have been discussions about including the
+Unicode::GCString module from CPAN in the Perl core.
+
+In order for that to happen, we need to find out what the possible implications
+might be, including, but not limited to, the current portability of the module
+and, if it isn't as portable as the core right now, what needs to be done to
+make it so, and the author's opinion on the inclusion.
+
 ** Medium Difficulty
 
 *** Make the MediaWiki::Bot test suite more robust
