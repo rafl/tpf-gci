@@ -313,16 +313,6 @@ number of tests at the start.
 
 Tasks related to community management and outreach/marketing.
 
-** Low Difficulty
-
-*** Write simple open source Mojolicious examples
-
-Duration: 4 days
-
-We'd love to see more simple open source examples for Mojolicious, of
-traditional apps like wikis, blogs and database admin tools or a real time app
-like a chat server or a web interface to control your lego robot or cat litter.
-
 ** Medium Difficulty
 
 *** Porting Dancer plugins to Dancer2
@@ -581,6 +571,14 @@ more quickly.
 It should include at least all the built-in attributes, including all the
 dispatching mechanisms, as well as the most important methods for the request
 context, the request object, and the response object.
+
+*** Write simple open source Mojolicious examples
+
+Duration: 4 days
+
+We'd love to see more simple open source examples for Mojolicious, of
+traditional apps like wikis, blogs and database admin tools or a real time app
+like a chat server or a web interface to control your lego robot or cat litter.
 
 ** Medium Difficulty
 
