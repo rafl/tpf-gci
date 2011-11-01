@@ -590,6 +590,16 @@ Retell [Ubic::Manual::Intro](https://metacpan.org/module/Ubic::Manual::Intro) in
 video form and put it online.  Requirements: you'll need a mike to record sound;
 previous experience screencast recording software will obviously help.
 
+*** Make sure the Moose training material is up to date
+
+Duration: 4 days
+
+The Moose training class material in
+http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/moose-presentations.git;a=summary
+has been written some time ago. Your task is to make sure that the code examples
+in there still work without raising any deprecation warnings, and that the
+document generally represents the latest way of doing things with Moose.
+
 ** High Difficulty
 
 *** Write and record Moose screencasts
