@@ -1,10 +1,10 @@
-* Code
+# Code #
 
 Tasks related to writing or refactoring code.
 
-** Low Difficulty
+## Low Difficulty ##
 
-*** Test the MetaCPAN codebase with the latest CPAN toolchain
+### Test the MetaCPAN codebase with the latest CPAN toolchain ###
 
 Duration: 2 days
 
@@ -17,7 +17,7 @@ the MetaCPAN dependencies from CPAN, reporting all test failures in them, and
 running the MetaCPAN frontend and backend on it to make sure the basic
 functionality is still working and all its tests pass .
 
-*** [Fix "Easy" perl5i code issues](https://github.com/schwern/perl5i/issues?sort=created&labels=easy&direction=desc&state=open) ###
+### [Fix "Easy" perl5i code issues](https://github.com/schwern/perl5i/issues?sort=created&labels=easy&direction=desc&state=open) ###
 
 Duration: 30 minutes to 2 days
 
@@ -31,7 +31,7 @@ some require discussion.
 Despite its magic, adding a perl5i feature is usually a matter of normal Perl
 programming.
 
-*** Make Data::Dumper optionally stop Dumper from using each()
+### Make Data::Dumper optionally stop Dumper from using each() ###
 
 Duration: 4 days
 
@@ -47,7 +47,7 @@ $Data::Dumper::Purity) should be created (and method-settable like the current
 ones, e.g. $d->Purity(1)), possibly called "Noeach" (?) which would iterate via
 a call to keys() rather than each()ing.
 
-*** [JSON formatter](https://github.com/schwern/test-more/issues/159) for [Test::Builder 1.5](https://github.com/schwern/test-more)
+### [JSON formatter](https://github.com/schwern/test-more/issues/159) for [Test::Builder 1.5](https://github.com/schwern/test-more) ###
 
 Duration: 6 hours
 
@@ -62,9 +62,9 @@ debugging and as a format which is easy to parse and loses no information.
 
 It's also good practice for writing more formatters.
 
-** Medium Difficulty
+## Medium Difficulty ##
 
-*** Add the bug count of distributions to the MetaCPAN index
+### Add the bug count of distributions to the MetaCPAN index ###
 
 Duration: 2 days
 
@@ -85,7 +85,7 @@ which is the goal of this task.
 
 See https://github.com/CPAN-API/metacpan-web/issues/291 for details.
 
-*** Show files/code of packages on OPAR
+### Show files/code of packages on OPAR ###
 
 Duration: 3 days
 
@@ -100,7 +100,7 @@ from OPAR.
 The goal of this task is to get filenames and code from files in the package,
 and create a webpage where the files and the code is shown.
 
-*** Help implement Dancer2 core engines
+### Help implement Dancer2 core engines ###
 
 Duration: 4 days
 
@@ -110,7 +110,7 @@ Dancer (wrappers providing support for different templating engines, different
 logging methods, different ways to store sessions, etc).  Port over/rewrite the
 missing ones.
 
-*** [JUnit formatter](https://github.com/schwern/test-more/issues/158) for [Test::Builder 1.5](https://github.com/schwern/test-more)
+### [JUnit formatter](https://github.com/schwern/test-more/issues/158) for [Test::Builder 1.5](https://github.com/schwern/test-more) ###
 
 Duration: 2 days
 
@@ -130,10 +130,9 @@ output the XML required for JUnit.
 
 It is recommended that the much simpler JSON formatter be tackled first.
 
-** High Difficulty
+## High Difficulty ##
 
-*** Move a module out of the lib/ directory and into ext/, dist/, or cpan/ in
-    the Perl core
+### Move a module out of the lib/ directory and into ext/, dist/, or cpan/ in the Perl core ###
 
 Duration: 2 days
 
@@ -153,7 +152,7 @@ layout, some of which are harder.
 Pick any of those modules and move them to the appropriate new directory while
 keeping both the build system and the tests working.
 
-*** Make http://mojolicio.us/ more magical
+### Make http://mojolicio.us/ more magical ###
 
 Duration: 3 days
 
@@ -163,7 +162,7 @@ box. This artwork also has some binary trees on it. We suggest that you try to
 implement the artwork dynamically to make a unique tree for each recent visitor
 to mojolicio.us, using the real time capabilities of the Mojolicious framework.
 
-*** Implement creative usages of Net::COLOURlovers
+### Implement creative usages of Net::COLOURlovers ###
 
 Duration: 3 days
 
@@ -175,7 +174,7 @@ website that features clothing, the colours and patterns of which can be
 customised easily. Any creative implementation (not necessarily the one stated
 above) is welcome.
 
-*** Implement Ubic::Service::MooseX::Daemonize
+### Implement Ubic::Service::MooseX::Daemonize ###
 
 Duration: 3 days
 
@@ -185,13 +184,13 @@ MooseX::Daemonize API to Ubic::Service base service class API and check that it
 works.  You can upload it on CPAN yourself, but this part of task is optional
 and won't be required.
 
-* Documentation
+# Documentation #
 
 Tasks related to creating/editing documents.
 
-** Low Difficulty
+## Low Difficulty ##
 
-*** Update Net::COLOURlovers documentation
+### Update Net::COLOURlovers documentation ###
 
 Duration: 1 day
 
@@ -200,7 +199,7 @@ Mentor: Alan Haggai Alavi (alanhaggai@alanhaggai.org)
 Currently the documentation looks like an API methods list. Describe each method
 (possibly) and add example usage.
 
-*** Fix a [perl5i documentation issue](https://github.com/schwern/perl5i/issues?labels=docs&sort=created&direction=desc&state=open&page=1) ###
+### Fix a [perl5i documentation issue](https://github.com/schwern/perl5i/issues?labels=docs&sort=created&direction=desc&state=open&page=1) ###
 
 Duration: 2 hours
 
@@ -213,7 +212,7 @@ tags consistent](https://github.com/schwern/perl5i/issues/208).
 See the [list of documentation
 issues](https://github.com/schwern/perl5i/issues?labels=docs&sort=created&direction=desc&state=open&page=1).
 
-*** [Document methods implemented by autobox::Core](https://github.com/scrottie/autobox-Core/issues/9)
+### [Document methods implemented by autobox::Core](https://github.com/scrottie/autobox-Core/issues/9) ###
 
 Duration: 6 hours
 
@@ -228,7 +227,7 @@ not perl5i.
 If you're feeling ambitious, the documentation could overall be made more
 consistent.
 
-*** Improve Dancer documentation
+### Improve Dancer documentation ###
 
 Duration: 2 days
 
@@ -236,9 +235,9 @@ Read through the Dancer documentation from the point of view of a new user
 unaccustomed to the framework, and suggest improvements (clarifications,
 additional new-user tips, etc).
 
-** Medium Difficulty
+## Medium Difficulty ##
 
-*** Ideas for creative usage of Net::COLOURlovers
+### Ideas for creative usage of Net::COLOURlovers ###
 
 Duration: 1 day
 
@@ -249,7 +248,7 @@ for the module](http://bit.ly/qtIepU) can be used by designers to select random
 colours and patterns; maybe for making designer clothing. There certainly are
 many more ideas. Document them.
 
-*** [Rewrite perlfaq entries with perl5i](https://github.com/schwern/perl5i/issues/206)
+### [Rewrite perlfaq entries with perl5i](https://github.com/schwern/perl5i/issues/206) ###
 
 Duration: 1 hour
 
@@ -271,7 +270,7 @@ In addition, you might come upon things which perl5i doesn't make easier *but
 could*.  [Please report that](https://github.com/schwern/perl5i/issues) and
 consider writing up a new feature.
 
-*** Add pod documentation to the Devel-Trepan .pm files
+### Add pod documentation to the Devel-Trepan .pm files ###
 
 Duration: 4 days
 
@@ -284,7 +283,7 @@ Currently most lib/**/*.pm files lack POD documentation. This task will add POD
 to them and bring them closer to full POD coverage. It will also involve
 prefixing methods for internal use with underscores.
 
-*** SpamAssassin Anti-Spam and Email Compendium
+### SpamAssassin Anti-Spam and Email Compendium ###
 
 Duration: 4 days
 
@@ -296,7 +295,7 @@ and could use edits and reviews of existing edits to prepare a document for
 publication on SA's wiki.  It will also be an excellent introduction to
 anti-Spam.
 
-*** [Prefer done_testing() in the Test::More documentation](https://github.com/schwern/test-more/issues/34)
+### [Prefer done_testing() in the Test::More documentation](https://github.com/schwern/test-more/issues/34) ###
 
 Duration: 1 day
 
@@ -309,13 +308,13 @@ tests => 123`.
 Rewrite the documentation to prefer `done_testing()` over `no_plan` or a static
 number of tests at the start.
 
-* Outreach
+# Outreach #
 
 Tasks related to community management and outreach/marketing.
 
-** Medium Difficulty
+## Medium Difficulty ##
 
-*** Porting Dancer plugins to Dancer2
+### Porting Dancer plugins to Dancer2 ###
 
 Duration: 3 days
 
@@ -324,7 +323,7 @@ CPAN may require minor changes, especially if they do anything lower-level with
 the core of Dancer.  Identify plugins which require changes, and submit required
 changes to the author for inclusion.
 
-*** Creating a web design and other UI elements for Dwim Perl
+### Creating a web design and other UI elements for Dwim Perl ###
 
 Duration: 5 days
 
@@ -338,7 +337,7 @@ the web site (the one currently was created only to provide some context and
 some content).  including description of the content in this package.  We will
 also need a few icons to be used during installation and on the desktop.
 
-*** Help out on the SpamAssassin mailing list
+### Help out on the SpamAssassin mailing list ###
 
 Duration: 3 days
 
@@ -346,9 +345,9 @@ The mailing list for Users is always in need of people to lend a hand to new
 administrators running SpamAssassin.  Fighting Anti-Spam is complex and requires
 a good knowledge of many technologies, RFCs, acronyms and more.
 
-** High Difficulty
+## High Difficulty ##
 
-*** Creating a report of the "most interesting CPAN uploads"
+### Creating a report of the "most interesting CPAN uploads" ###
 
 Duration: 3 days
 
@@ -382,7 +381,7 @@ last N days (N = 7)
 It should be written in a way that it can be later integrated in MetaCPAN or
 elsewhere.
 
-*** The Organisers Aid
+### The Organisers Aid ###
 
 Duration: 6 days
 
@@ -409,13 +408,13 @@ made.
 More than one community member will have input and guidance and the Mentor will
 have at least one back-up mentor as this covers a vast area of expertise.
 
-* Quality Assurance
+# Quality Assurance #
 
 Tasks related to testing and ensuring code is of high quality.
 
-** Medium Difficulty
+## Medium Difficulty ##
 
-*** Synchronise a core module with CPAN
+### Synchronise a core module with CPAN ###
 
 Duration: 4 days
 
@@ -434,7 +433,7 @@ Suggested modules:
 
 - Tie::File (core: 0.97, CPAN: 0.96 (broken))
 
-*** Test and improve Dancer2 backwards compatibility
+### Test and improve Dancer2 backwards compatibility ###
 
 Duration: 3 days
 
@@ -442,9 +441,9 @@ Dancer2 is a rewrite from scratch of the Dancer framework, whilst maintaining
 the same DSL and providing backwards compatibility.  Help test for backwards
 compatibility and fix any problems found.
 
-** High Difficulty
+## High Difficulty ##
 
-*** Prepare first 100% open-source public release of LunapCMS
+### Prepare first 100% open-source public release of LunapCMS ###
 
 Duration: 7 days
 
@@ -470,7 +469,7 @@ injection attacks, make sure all web-based input is sanitized well, and
 generally try and ensure that it's ready to switch from obscurity to public
 without endangering sites that use it.
 
-*** Fix SpamAssassin bugs
+### Fix SpamAssassin bugs ###
 
 Duration: 3 days
 
@@ -481,13 +480,13 @@ https://issues.apache.org/SpamAssassin/buglist.cgi?query_format=specific&order=r
 desc&bug_status=__open__ and pick something that interests them.
 
 
-* Research
+# Research #
 
 Tasks related to studying a problem and recommending solutions.
 
-** Low Difficulty
+## Low Difficulty ##
 
-*** Investigate the viability of including Unicode::GCString in the Perl core
+### Investigate the viability of including Unicode::GCString in the Perl core ###
 
 Duration: 5 days
 
@@ -499,9 +498,9 @@ might be, including, but not limited to, the current portability of the module
 and, if it isn't as portable as the core right now, what needs to be done to
 make it so, and the author's opinion on the inclusion.
 
-** Medium Difficulty
+## Medium Difficulty ##
 
-*** Make the MediaWiki::Bot test suite more robust
+### Make the MediaWiki::Bot test suite more robust ###
 
 Duration: 2 days
 
@@ -512,7 +511,7 @@ whether this is caused by an error with the wiki the test suite uses, a bug in
 the test suite, or a bug in the module. This project involves determining where
 the errors are, and possibly fixing them.
 
-*** Make Ubic compatible with Solaris
+### Make Ubic compatible with Solaris ###
 
 Duration: 2 days
 
@@ -522,9 +521,9 @@ other virtualization software), figure out what's wrong and fix it.  Benefits:
 we'll be able to claim that Ubic works on all *nix systems.  Requirements:
 experience with vmware and *nix systems will help, but completely optional.
 
-** High Difficulty
+## High Difficulty ##
 
-*** SpamAssassin Website Migration
+### SpamAssassin Website Migration ###
 
 Duration: 6 days
 
@@ -535,7 +534,7 @@ infrastructure - See http://www.apache.org/dev/cms.html Reading this
 documentation and reviewing the current website code to identify tasks to
 achieve the switch over would be ideal.
 
-*** Investigate the possibility of declaring conflicting dependencies for CPAN modules
+### Investigate the possibility of declaring conflicting dependencies for CPAN modules ###
 
 Duration: 7 days
 
@@ -551,13 +550,13 @@ seem be adopted widely or actually fix this issue for users.
 Investigate what it'd take to make our module toolchain handle these kinds of
 updates in a more user-friendly way.
 
-* Training
+# Training #
 
 Tasks related to helping others learn more.
 
-** Low Difficulty
+## Low Difficulty ##
 
-*** Create a Catalyst Cheat Sheet
+### Create a Catalyst Cheat Sheet ###
 
 Duration: 3 days
 
@@ -572,7 +571,7 @@ It should include at least all the built-in attributes, including all the
 dispatching mechanisms, as well as the most important methods for the request
 context, the request object, and the response object.
 
-*** Write simple open source Mojolicious examples
+### Write simple open source Mojolicious examples ###
 
 Duration: 4 days
 
@@ -580,9 +579,9 @@ We'd love to see more simple open source examples for Mojolicious, of
 traditional apps like wikis, blogs and database admin tools or a real time app
 like a chat server or a web interface to control your lego robot or cat litter.
 
-** Medium Difficulty
+## Medium Difficulty ##
 
-*** Record Ubic tutorial screencast
+### Record Ubic tutorial screencast ###
 
 Duration: 3 days
 
@@ -590,7 +589,7 @@ Retell [Ubic::Manual::Intro](https://metacpan.org/module/Ubic::Manual::Intro) in
 video form and put it online.  Requirements: you'll need a mike to record sound;
 previous experience screencast recording software will obviously help.
 
-*** Make sure the Moose training material is up to date
+### Make sure the Moose training material is up to date ###
 
 Duration: 4 days
 
@@ -600,7 +599,7 @@ has been written some time ago. Your task is to make sure that the code examples
 in there still work without raising any deprecation warnings, and that the
 document generally represents the latest way of doing things with Moose.
 
-*** Plack::Middleware::Auth::Form example code for one of the main Perl web frameworks
+### Plack::Middleware::Auth::Form example code for one of the main Perl web frameworks ###
 
 Duration: 3 days
 
@@ -612,9 +611,9 @@ independent. The idea is to have web app components that would be as universal
 as possible. We need example code showing how it can be used in the main Perl
 web frameworks like Dancer, Mojolicious, Catalyst and others.
 
-** High Difficulty
+## High Difficulty ##
 
-*** Write and record Moose screencasts
+### Write and record Moose screencasts ###
 
 Duration: 4 days
 
@@ -627,13 +626,13 @@ For that, find one or more of these modules, for example by having a chat about
 it with the Moose community, think of a practical use case for it, and produce a
 screencast illustrating how the modules helps solving the task.
 
-* Translation
+# Translation #
 
 Tasks related to localization.
 
-** Low Difficulty
+## Low Difficulty ##
 
-*** Update translations for Padre
+### Update translations for Padre ###
 
 Duration: 3 days
 
@@ -646,7 +645,7 @@ Portuguese, Russian, Turkish, Chinese Traditional and Simplified.  From these
 the German, French and Japanese are almost up to date so the others would be
 more important.
 
-*** Update an [OpenWebMail](http://openwebmail.acatysmoof.com) translation
+### Update an [OpenWebMail](http://openwebmail.acatysmoof.com) translation ###
 
 Duration: 1 day
 
@@ -657,7 +656,7 @@ work with by using the POEdit software. By following our [simple
 instructions](http://openwebmail.acatysmoof.com/doc/tech/i18n) anyone can update
 an existing translation with very little technical know-how.
 
-*** Create an [OpenWebMail](http://openwebmail.acatysmoof.com) translation
+### Create an [OpenWebMail](http://openwebmail.acatysmoof.com) translation ###
 
 Duration: 2 days
 
@@ -668,9 +667,9 @@ work with by using the POEdit software. By following our [simple
 instructions](http://openwebmail.acatysmoof.com/doc/tech/i18n) anyone can create
 a translation with very little technical know-how.
 
-** Medium Difficulty
+## Medium Difficulty ##
 
-*** Translate the Moose website into a new language
+### Translate the Moose website into a new language ###
 
 Duration: 3 days
 
@@ -679,7 +678,7 @@ have some more coverage.
 
 The website repository is available at git.shadowcat.co.uk as moose-website.git.
 
-*** Translate a Mojolicious Guide
+### Translate a Mojolicious Guide ###
 
 Duration: 3 days
 
@@ -697,7 +696,7 @@ to see more translations of these:
 - {{cpan Mojolicious::Guides::FAQ}}
 - {{cpan Mojolicious::Guides::CodingGuidelines}}
 
-*** Transcribe and/or translate Perl screencasts
+### Transcribe and/or translate Perl screencasts ###
 
 Duration: 2 days
 
@@ -712,9 +711,9 @@ YouTube channel: http://www.youtube.com/gabor529
 
 Github repository of the project: https://github.com/szabgab/screencasts
 
-** High Difficulty
+## High Difficulty ##
 
-*** Write and include code examples for Perl on Android
+### Write and include code examples for Perl on Android ###
 
 Duration: 3 days
 
@@ -725,15 +724,14 @@ http://code.google.com/p/android-scripting/ but it lack good examples. The
 student should setup Perl on the Android emulator, write several examples and
 submit them for inclusion in the SL4A repository.
 
-* User Interface
+# User Interface #
 
 Tasks related to user experience research or user interface design and
 interaction.
 
-** Low Difficulty
+## Low Difficulty ##
 
-*** Figure out a way for MetaCPAN to display an author's perlmonger groups on
-    his author page
+### Figure out a way for MetaCPAN to display an author's perlmonger groups on his author page ###
 
 Duration: 1 day
 
@@ -746,7 +744,7 @@ groups they associate themself with. This task is about figuring out how to
 actually display that author-provided data on the publically accessible author
 profile pages.
 
-*** Display the bug summary on the MetCPAN distribution overview page
+### Display the bug summary on the MetCPAN distribution overview page ###
 
 Duration: 6 hours
 
@@ -756,10 +754,9 @@ This is the continuation of the previous task and consists of coming up with a
 nice way of showing the new bug data in the index and implementing it.
 
 
-** Medium Difficulty
+## Medium Difficulty ##
 
-*** Write the web frontend for authors to provide ther Perlmonger group
-    affiliations on MetaCPAN
+### Write the web frontend for authors to provide ther Perlmonger group affiliations on MetaCPAN ###
 
 Duration: 1 day
 
@@ -772,7 +769,7 @@ their URLs.
 The HTML and JavaScript code to do that needs to be written.
 
 
-*** Create JavaScript Release Widget/Badge for MetaCPAN
+### Create JavaScript Release Widget/Badge for MetaCPAN ###
 
 Duration: 6 hours
 
@@ -788,7 +785,7 @@ CPAN.  It will always be in sync with the latest upload for a project, so it's
 useful for keeping up with version numbers as well as providing links to the
 official documentation which exists on MetaCPAN.
 
-*** New Icon Sets for [OpenWebMail](http://openwebmail.acatysmoof.com)
+### New Icon Sets for [OpenWebMail](http://openwebmail.acatysmoof.com) ###
 
 Duration: 4 days
 
@@ -802,7 +799,7 @@ the iconsets can be jpg, gif, or png files. You can visit our [test
 installation](http://openwebmail.acatysmoof.com/testing) to see how and where
 the icons are used in the interface.
 
-*** Design for enlightenedperl.org
+### Design for enlightenedperl.org ###
 
 Duration: 2 days
 
@@ -815,7 +812,7 @@ they perform and implements modern web technologies to provide Facebook, Twitter
 and community site integration so that they can further promote this community
 organisation.
 
-*** Design for Jobs.perl.org
+### Design for Jobs.perl.org ###
 
 Duration: 2 days
 
@@ -826,9 +823,9 @@ fresh.
 Jobs.Perl.org needs a new look which will mean canvassing ideas of how to
 organise and display the current material and present it a contemporary design.
 
-** High Difficulty
+## High Difficulty ##
 
-*** HTML update for [OpenWebMail](http://openwebmail.acatysmoof.com)
+### HTML update for [OpenWebMail](http://openwebmail.acatysmoof.com) ###
 
 Duration: 5 days
 
