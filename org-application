@@ -1,0 +1,103 @@
+* Organization id:
+
+tpf
+
+* Organization name:
+
+The Perl Foundation
+
+* Organization description:
+
+The Perl Foundation is dedicated to the advancement of the Perl programming
+language through open discussion, collaboration, design, and code.
+
+The Perl Foundation coordinates the efforts of numerous grass-roots Perl-based
+groups, including:
+
+  * International Yet Another Perl Conferences
+  * Carries the legal responsibility for Perl 5 and Perl 6
+  * perl.org
+  * Perl Mongers
+  * PerlMonks
+
+The Perl Foundation is dedicated to the advancement of the Perl programming
+language through open discussion, collaboration, design, and code. The Perl
+Foundation is a non-profit, 501(c)(3) organization based in Holland, Michigan.
+
+* Organization home page url:
+
+http://perlfoundation.org/
+
+* Main organization license:
+
+GNU General Public License version 2.0 (GPLv2)
+
+* Backup Admin:
+
+mdk
+
+* Why has your org chosen to participate in Google Code-in?
+
+Each year we participated in GSoC and GCI has been a great experience for both
+the students and the developers and we plan to repeat this process.
+
+The excitement that new faces bring to various Perl projects is invaluable.
+
+* Please list the years your organization has participated in GSoC.
+
+2011, 2010, 2009, 2008, and most likely more. I wasn't involved up until 2008. I
+believe there's only one GSoC we didn't take part in.
+
+* What is the main development mailing list for your organization? This question
+   will be shown to students who would like to get more information about
+   applying to your organization for Google Code-in 2010-11. If your
+   organization uses more than one list, please make sure to include a
+   description of the list so students know which to use.
+
+
+The Perl Community is very diverse. Depending on with of the many, many
+subprojects you decide to work with, different channels of communication may be
+appropriate.
+
+Almost all of our participating projects have their mailing list mentioned in
+their documentation. However, if you're unsure about how to get in contact with
+the project you chose, we'd be happy to point you in the right direction. Just
+drop tpf-gsoc-students@googlegroups.com a short mail or stop by on IRC in #gci
+on irc.perl.org.
+
+* What is the main IRC channel for your organization?
+
+irc://irc.perl.org/#gci
+
+* Please provide a link to your task ideas page. This is much like the ideas
+   page for Google Summer of Code but must include at least 5 tasks in all of
+   the 8 categories sorted by difficulty level.
+
+http://wiki.enlightenedperl.org/gci2011/gci2011/ideas
+
+* Please tell us about how your organization has prepared for Google Code-in,
+   including what (and how many) mentors and organization administrators have
+   agreed to help, what your schedule and response time will be during the
+   holidays (and otherwise during the contest period) and how you plan to deal
+   with unresponsive mentors.
+
+We'll be having 3 org-admins this year.
+
+As of now, about a dozen mentors have volunteered to help out without us even
+going around and asking them for there help. Historically we tend to end up with
+more than 30 mentors after going through all the project ideas and contacting
+the various sub-communities to provide a few suitable mentors for the tasks we
+have.
+
+Given the diversity and size of the Perl community, we tend to always have
+enough mentors to have at least two of them look over any given task. This has
+worked out nicely in GSoC, and I'm sure it will as well for GCI. Whenever
+possible, we also make sure the mentors for a tasks are located far enough from
+each other, time zone wise, so that the student will have someone to talk to
+being around for most of the day, no matter where he's located.
+
+Given the above, we expect to have round-trip times in communication of no more
+than half a day to a day. Prospective mentors have been made aware of and will
+be made aware of that they're supposed to put in at least a little time, even
+during the holidays. We won't be accepting mentors that don't feel comfortable
+with that.
