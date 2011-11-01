@@ -17,14 +17,6 @@ the MetaCPAN dependencies from CPAN, reporting all test failures in them, and
 running the MetaCPAN frontend and backend on it to make sure the basic
 functionality is still working and all its tests pass .
 
-*** Write simple open source Mojolicious examples
-
-Duration: 4 days
-
-We'd love to see more simple open source examples for Mojolicious, of
-traditional apps like wikis, blogs and database admin tools or a real time app
-like a chat server or a web interface to control your lego robot or cat litter.
-
 *** [Fix "Easy" perl5i code issues](https://github.com/schwern/perl5i/issues?sort=created&labels=easy&direction=desc&state=open) ###
 
 Duration: 30 minutes to 2 days
@@ -320,6 +312,16 @@ number of tests at the start.
 * Outreach
 
 Tasks related to community management and outreach/marketing.
+
+** Low Difficulty
+
+*** Write simple open source Mojolicious examples
+
+Duration: 4 days
+
+We'd love to see more simple open source examples for Mojolicious, of
+traditional apps like wikis, blogs and database admin tools or a real time app
+like a chat server or a web interface to control your lego robot or cat litter.
 
 ** Medium Difficulty
 
