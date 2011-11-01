@@ -600,6 +600,18 @@ has been written some time ago. Your task is to make sure that the code examples
 in there still work without raising any deprecation warnings, and that the
 document generally represents the latest way of doing things with Moose.
 
+*** Plack::Middleware::Auth::Form example code for one of the main Perl web frameworks
+
+Duration: 3 days
+
+Suggested mentor: Tadeusz Sośnierz
+
+Plack::Middleware::Auth::Form is an authentication component for web
+applications that works on the level of Plack middleware and thus is framework
+independent. The idea is to have web app components that would be as universal
+as possible. We need example code showing how it can be used in the main Perl
+web frameworks like Dancer, Mojolicious, Catalyst and others.
+
 ** High Difficulty
 
 *** Write and record Moose screencasts
