@@ -1,0 +1,117 @@
+#!/home/pjcj/perl5/perlbrew/perls/perl-5.14.2/bin/perl
+
+use 5.14.2;
+
+use strict;
+use warnings;
+
+my $csv = 0;
+
+my ($title, $desc, $time, $mentors, $count, $diff, $types, $tags);
+my %mentors;
+
+sub write_task
+{
+    # say "write_task [$title] [$desc]";
+    return unless $title && $desc;
+
+    while ($title =~ s/\[(.*?)\]\((.*?)\)/$1/)
+    {
+        $desc = "See <a href=\"$2\">$1</a>\n\n$desc";
+    }
+
+    $desc =~ s/\[(.*?)\]\((.*?)\)/<a href=\"$2\">$1<\/a>/gs;
+
+    $diff =~ s/Low/Easy/;
+    $diff =~ s/Hard/High/;
+    $time *= 24;
+
+    $mentors ||= "none specified";
+
+    $count ||= 1;
+
+    my @fields;
+    for ($title, $desc, $time, $mentors, $diff, $types, $tags)
+    {
+        $_ //= "";
+        chomp;
+        # say "[$_]";
+        s/^\s+//;
+        s/\s+$//;
+        s/\n(?!\n)/ /gs;
+        s/\n\s*/<p>/gs;
+        s/"/""/g;
+        $_ = "\"$_\"" if /,/;
+        push @fields, $_;
+    }
+    if ($csv)
+    {
+        for (1 .. $count)
+        {
+            $fields[0] = "$title ($_)" if $count > 1;
+            say join ",", @fields;
+        }
+    }
+    else
+    {
+        print <<"EOT";
+Title:       $title
+Description: $desc
+Time:        $time
+Mentors:     $mentors
+Count:       $count
+Difficulty:  $diff
+Types:       $types
+
+EOT
+        $mentors{$mentors} += $count;
+    }
+    $title = $desc = $time = $mentors = $count = $tags = "";
+}
+
+sub main
+{
+    while (<>)
+    {
+        # print "--- $_";
+        my $m;
+        if (($m) = /^###(.+?)(?:###)?$/)
+        {
+            write_task;
+            $title = $m;
+        }
+        elsif (($m) = /^##(.+) Difficulty ##$/i)
+        {
+            write_task;
+            $diff = $m;
+        }
+        elsif (($m) = /^#(.+)#$/)
+        {
+            write_task;
+            $types = $m;
+        }
+        elsif (/^Duration: .*(\d+) days$/i)
+        {
+            $time = $1;
+        }
+        elsif (/^(?:Suggested )?mentor: (.*)$/i)
+        {
+            $mentors = $1;
+        }
+        elsif (/^Count: (\d+)$/i)
+        {
+            $count = $1;
+        }
+        else
+        {
+            $desc .= $_ if $title && ($desc || /\S/);
+        }
+    }
+
+    unless ($csv)
+    {
+        printf "%-46s: %d\n", $_, $mentors{$_} for sort keys %mentors;
+    }
+}
+
+main

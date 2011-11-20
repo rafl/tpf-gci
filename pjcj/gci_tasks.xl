@@ -1,0 +1,1259 @@
+# Code #
+
+Tasks related to writing or refactoring code.
+
+## Low Difficulty ##
+
+### Test the MetaCPAN codebase with the latest CPAN toolchain ###
+
+Suggested Mentor: Florian Ragwitz
+
+Duration: 2 days
+
+MetaCPAN currently runs on slightly outdated versions of its CPAN
+dependencies. We'd like to upgrade, but we're not quite sure if anything would
+still work if we upgraded.
+
+This tasks involves getting a fresh installation of perl 5.14.2, installing all
+the MetaCPAN dependencies from CPAN, reporting all test failures in them, and
+running the MetaCPAN frontend and backend on it to make sure the basic
+functionality is still working and all its tests pass.
+
+###[perl5i: Fix "Easy" perl5i code issues](https://github.com/schwern/perl5i/issues?sort=created&labels=easy&direction=desc&state=open) ###
+
+Duration: 2 - 3 days
+
+Suggested mentor: schwern@pobox.com
+
+perl5i has a list of [easy
+issues](https://github.com/schwern/perl5i/issues?sort=created&labels=easy&direction=desc&state=open)
+which can be done.  Some are fairly trivial, some require a bit of work, and
+some require discussion.
+
+Despite its magic, adding a perl5i feature is usually a matter of normal Perl
+programming.
+
+This is a meta-task.  The specific tasks are described individually.
+
+###[perl5i: Remove autobox fixes which exist in autobox::Core](https://github.com/schwern/perl5i/issues/209) ###
+
+Duration: 2 days
+
+Suggested mentor: schwern@pobox.com
+
+perl5i has had to fix a number of methods from autobox::Core. A lot of these have since been fixed in autobox::Core.
+
+Check if our fixes have been fixed upstream and if so remove them. Make sure we depend on a high enough version of autobox::Core.
+
+If one of our fixes hasn't been pushed upstream, consider reporting it to autobox::Core and maybe patch it.
+
+###[perl5i: Method to turn an array into a hash](https://github.com/schwern/perl5i/issues/172)
+
+Duration: 2 days
+
+Suggested mentor: schwern@pobox.com
+
+I write this a lot:
+
+my %hash = map { $_ => 1 } @array;
+
+Usually because I want to check if there's an element in @array a lot.
+
+So my %hash = @array->as_hash seems sensible. Should it do anything else?
+
+###[perl5i: Multi pop/shift](https://github.com/schwern/perl5i/issues/149) ###
+
+Duration: 2 days
+
+Suggested mentor: schwern@pobox.com
+
+Popping or shifting multiple items off an array is a pita. Either you have to figure out how to use splice to do it, or use a for loop.
+
+Make a pop and shift that take the number of things to pop off.
+
+Issue: pop() returns a scalar. @array->pop(3); should return an array or array ref. Does this mean we modify @array->pop so it returns an array if there's an argument? Or do we write popn? I lean towards popn/shiftn.
+
+###[perl5i: Array->rotate](https://github.com/schwern/perl5i/issues/146) ###
+
+Duration: 2 days
+
+Suggested mentor: schwern@pobox.com
+
+Thinking of an array of strings as rows and columns, flip the columns and rows. So:
+
+my @rows = ("AAA", "BBB", "123");<br>
+my @columns = @rows->rotate;  # ("AB1", "AB2", "AB3");
+
+Short rows are filled in with spaces, possible configurable option.
+
+my @rows = ("A", "BBB", "1234");<br>
+my @columns = @rows->rotate;  # ("AB1", " B2", " B3", "  4");
+
+See http://stackoverflow.com/questions/3206720/perl-hash-of-hash-and-columns/3206871#3206871 for inspiration.
+
+###[perl5i: ARRAY/HASH->pick to get a random element](https://github.com/schwern/perl5i/issues/145) ###
+
+Duration: 2 days
+
+Suggested mentor: schwern@pobox.com
+
+Pick N random elements out of a list or hash (in which case its the yet to be defined Pair). Modeled on Perl 6's pick. http://svn.pugscode.org/pugs/docs/Perl6/Spec/S32-setting-library/Containers.pod
+
+ method pick ( Int $number = 1 )
+
+pick guarantees not to return the same element twice in a single call.
+
+What should it return? If you just want to pick one it seems silly to return a list or array ref. But I don't want to make an exception for where $number = 1. Maybe $item = @array->pick_one.
+
+If $number is greater than the size of the list, it returns the entire list, shuffled. $number = 0 returns an empty list.
+
+###[perl5i: /usr/bin/perl5i1](https://github.com/schwern/perl5i/issues/111)
+
+Duration: 2 days
+
+Suggested mentor: schwern@pobox.com
+
+pjf suggests that we ship a perl5i1 binary to match perl5i::1 (and perl5i2 to match perl5i2, etc...).
+
+The perl5i binary is mostly for one-liners, using it in the #! line is half a joke, but I don't see why not.
+
+###[perl5i: Better $SIG{__DIE__}](https://github.com/schwern/perl5i/issues/86) ###
+
+Duration: 2 days
+
+Suggested mentor: schwern@pobox.com
+
+$SIG{DIE} has a major flaw, it triggers on eval. To get it right your DIE handler should return if $^S is set.
+
+So write our own that does that. How? Make $DIE a tied global which you can set to a code ref, just like $SIG{DIE}, but it return if $^S is set. Ta da!
+
+Throw in $WARN for consistency.
+
+###[perl5i: Add methods to work with overloading](https://github.com/schwern/perl5i/issues/72) ###
+
+Duration: 2 days
+
+Suggested mentor: schwern@pobox.com
+
+overload.pm has three functions which would be handy in Object.
+
+my $is_overloaded = $object->is_overloaded(); Returns true if the object is overloaded, false otherwise. Just overloaded::Overloaded().
+
+my $code = $object->is_overloaded($op); Returns the method which implements $op, if its overloaded. False otherwise. overload::Method()
+
+And a method to return the string value of the object in the absence of overloading. overload::StrVal(). Don't know what the method should be.
+
+### Make Data::Dumper optionally stop Dumper from using each() ###
+
+Duration: 4 days
+
+Mentor: msouth@gmail.com
+
+Currently, Data::Dumper's dump() subroutine uses perl's "each" to iterate over
+the thing it's dumping.  This can cause problems if you are each()ing over a
+hashref and you dump the hashref while you're each()ing over it, leading to an
+infinite loop.
+
+A variable like the other ones Dumper uses to control its functionality (such as
+$Data::Dumper::Purity) should be created (and method-settable like the current
+ones, e.g. $d->Purity(1)), possibly called "Noeach" (?) which would iterate via
+a call to keys() rather than each()ing.
+
+### [JSON formatter](https://github.com/schwern/test-more/issues/159) for [Test::Builder 1.5](https://github.com/schwern/test-more) ###
+
+Duration: 2 days
+
+Mentor: schwern@pobox.com
+
+Test::Builder 1.5 is a major internals rewrite of the framework which powers
+almost all the Perl testing modules.
+
+Using the new formatters available in Test::Builder 1.5, write a formatter to
+output test events as a list of JSON objects.  This will both be useful for
+debugging and as a format which is easy to parse and loses no information.
+
+It's also good practice for writing more formatters.
+
+### Mark internal Devel-Trepan methods ###
+
+Duration: 3 days
+
+Mentor: Shlomi Fish
+
+Devel-Trepan is an enhanced and usable debugger for Perl 5. It is more gdb-like
+and contains an extensive API.
+
+The internal methods need to be marked as such by prefixing them with an
+underscore.
+
+## Medium Difficulty ##
+
+### Add the bug count of distributions to the MetaCPAN index ###
+
+Suggested Mentor: Florian Ragwitz
+
+Duration: 2 days
+
+On the distribution overview pages, such as https://metacpan.org/release/Moose,
+you can find a nice overview of metadata about the distribution, such as the
+number of ratings and the average rating.
+
+There's also a link to the distribution's bugtracker.
+
+Most CPAN distributions use http://rt.cpan.org/ to track their bugs. rt.cpan.org
+provides a summary of bug reports for each distribution.
+
+It'd be nice to have that overview of open bugs for a distribution displayed
+right next to the bugs link on the overview page.
+
+For that to happen, we first need to collect that data into the MetaCPAN index,
+which is the goal of this task.
+
+See https://github.com/CPAN-API/metacpan-web/issues/291 for details.
+
+### Show files/code of packages on OPAR ###
+
+Duration: 3 days
+
+Mentor: Renee Baecker
+
+OPAR is the "OTRS Package ARchive" a public package repository for OTRS, the
+help desk software written in Perl.
+
+Currently the user has no chance to see the code until he downloads the package
+from OPAR.
+
+The goal of this task is to get filenames and code from files in the package,
+and create a webpage where the files and the code is shown.
+
+### Help implement Dancer2 core engines ###
+
+Suggested mentor: David Precious
+
+Duration: 4 days
+
+Dancer2 is a rewrite from scratch of Dancer, a web framework.  Dancer2 does not
+yet include the full range of session/template/logging engines available for
+Dancer (wrappers providing support for different templating engines, different
+logging methods, different ways to store sessions, etc).  Port over/rewrite the
+missing ones.
+
+### [JUnit formatter](https://github.com/schwern/test-more/issues/158) for [Test::Builder 1.5](https://github.com/schwern/test-more) ###
+
+Duration: 2 days
+
+Mentor: schwern@pobox.com
+
+Test::Builder 1.5 is a major internals rewrite of the framework which powers all
+the Perl testing modules.
+
+
+[Jenkins](http://jenkins-ci.org/) (formerly known as Hudson) is a very popular
+continuous testing tool.  It prefers to read test output in the XML format used
+by JUnit.  Perl tests output in a format called TAP (Test Anything Protocol) and
+numerous shims are needed for it to talk to be understood by Jenkins.
+
+Using the new formatters available in Test::Builder 1.5, write a formatter to
+output the XML required for JUnit.
+
+It is recommended that the much simpler JSON formatter be tackled first.
+
+###[perl5i: no multidimensional](https://github.com/schwern/perl5i/issues/202) ###
+
+Duration: 3 days
+
+Suggested mentor: schwern@pobox.com
+
+Disable the old school multidimensional hash emulation which now serves as a trap.
+
+Implement with "no multidimensional". http://search.cpan.org/perldoc?multidimensional
+
+This will make existing code incompatible and so needs a major version bump.
+
+See [#175](https://github.com/schwern/perl5i/issues/175) for previous discussion.
+
+###[perl5i: Add no multidimensional; no stringification; no bareword::filehandles](https://github.com/schwern/perl5i/issues/175) ###
+
+Duration: 3 days
+
+Suggested mentor: schwern@pobox.com
+
+Same idea as the pragmas autovivification, indirect.
+
+###[perl5i: Make all autoboxed functions which return a list act consistently](https://github.com/schwern/perl5i/issues/109) ###
+
+Duration: 3 days
+
+Suggested mentor: schwern@pobox.com
+
+The general pattern of autoboxed methods which return lists is to return an array ref in scalar context and an array in list context. They don't all do that, especially things which come from autobox::Core.
+
+map and grep have been altered. Candidates include sort().
+
+Alternatively, fix it in autobox::Core. schwern has a release bit on that, apparently.
+
+###[perl5i: A better AUTOLOAD](https://github.com/schwern/perl5i/issues/73) ###
+
+Duration: 2 days
+
+Suggested mentor: schwern@pobox.com
+
+The way one writes AUTOLOAD sucks. Particularly having to parse out $AUTOLOAD.
+
+Implement method_does_not_exist() to replace AUTOLOAD(). It can be implemented by writing Object::AUTOLOAD() which calls method_does_not_exist(). The critical difference being that we want to provide the package and method name without having to parse it out. This should be stored in a message object. This can either be passed into method_does_not_exist() or supplied as a global. I'm leaning towards passed in as it avoids having to declare the magic global.
+
+Here's an example of an automatic accessor.
+
+sub method_does_not_exist {<br>
+    my $self = shift;<br>
+    my $msg  = shift;<br>
+    my $name = $msg->name;  # the method name, without the package qualifier<br>
+<br>
+    if( @_ ) {<br>
+        $self->{$name} = shift;<br>
+    }<br>
+    return $self->{$name};<br>
+}
+
+### Port A Dancer plugin to Dancer2 ###
+
+Suggested mentor: David Precious
+
+Duration: 3 days
+
+Count: 10
+
+Whilst Dancer2 is striving for backwards compatibility, some existing plugins on
+CPAN may require minor changes, especially if they do anything lower-level with
+the core of Dancer.  Identify a plugin which require changes, and submit required
+changes to the author for inclusion.
+
+## High Difficulty ##
+
+### Move a module out of the lib/ directory and into ext/, dist/, or cpan/ in the Perl core ###
+
+Suggested Mentor: Florian Ragwitz
+
+Duration: 2 days
+
+Historically, all modules bundled with the Perl Core have been located in the
+lib/ directory. That made keeping them in sync with their CPAN versions or
+getting them released onto CPAN in the first place very hard.
+
+In recent years, the Perl Porters have been working on moving a lot of code out
+of the lib/ directory, and into distribution directories under either ext/,
+dist/, or cpan/, depending on whether the module is maintained in the core only,
+in the core but also available on CPAN, or on CPAN and merely synced to the
+core, respectively.
+
+There's still some leftovers in lib/, some of which are easy to move to the new
+layout, some of which are harder.
+
+Pick any of those modules and move them to the appropriate new directory while
+keeping both the build system and the tests working.
+
+### Make http://mojolicio.us/ more magical ###
+
+Suggested mentor: Marcus Ramberg
+
+Duration: 3 days
+
+On the frontpage of our site ([http://mojolicio.us](http://mojolicio.us)),
+there's a neat vector artwork by SRI showing a cloud going into a unicorn
+box. This artwork also has some binary trees on it. We suggest that you try to
+implement the artwork dynamically to make a unique tree for each recent visitor
+to mojolicio.us, using the real time capabilities of the Mojolicious framework.
+
+### Implement creative usages of Net::COLOURlovers ###
+
+Duration: 3 days
+
+Mentor: Alan Haggai Alavi (alanhaggai@alanhaggai.org)
+
+This task is related to the previous one. Implement example creative usages in
+code. For the designer clothing example (from the previous task), implement a
+website that features clothing, the colours and patterns of which can be
+customised easily. Any creative implementation (not necessarily the one stated
+above) is welcome.
+
+### Implement Ubic::Service::MooseX::Daemonize ###
+
+Suggested mentor: Vyacheslav Matyukhin
+
+Duration: 3 days
+
+We want to support as many alternative daemonization backends as
+possible. MooseX::Daemonize is one of them.  You'll have to adapt
+MooseX::Daemonize API to Ubic::Service base service class API and check that it
+works.  You can upload it on CPAN yourself, but this part of task is optional
+and won't be required.
+
+### Enhance bisect.pl to install a CPAN module with no dependencies ###
+
+Suggested mentor: Florian Ragwitz
+
+Duration: 5 days
+
+bisect.pl is a tool that comes with the perl core and allows developers to
+run an enhanced git bisect on the perl core.  This task involves enhancing
+bisect.pl to install a module from CPAN on each revision which can then be
+used to run the test case.
+
+Take the bisect program, and improve it so that it's able to test for a
+behaviour change in a CPAN module which has no prerequisites.
+
+Currently the bisect runner can build perl (and all extensions), and
+use that uninstalled perl to run a test case.
+Improve it so that it can also run test cases that depend on external
+code, such as a simple CPAN module.
+This would mean adapting it so that it then
+
+a) installs the test built perl to a scratch directory
+
+b) changes directory to the CPAN module's source [previously unpacked]
+
+c) runs that CPAN module's Makefile.PL or Build.PL
+
+d) runs make or ./Build
+
+e) runs the user's test case code with -Mblib
+
+f) cleans the module's source directory
+
+g) deletes the scratch installation
+
+h) reports the result
+
+### Enhance bisect.pl to install a CPAN module with dependencies ###
+
+Suggested mentor: Florian Ragwitz
+
+Duration: 5 days
+
+bisect.pl is a tool that comes with the perl core and allows developers to
+run an enhanced git bisect on the perl core.  This task involves building on
+the task "Enhance bisect.pl to install a CPAN module with no dependencies"
+to allow one or more CPAN modules to be installed with their dpendencies.
+
+This task *cannot* be claimed until the task "Enhance bisect.pl to install a
+CPAN module with no dependencies" has been successfully completed.
+
+This probably involves configuring one of the cpan installer shells and
+using it to do the installation.  If the module won't install then the
+revision should probably be marked as "skip".
+
+### Write and include code examples for Perl on Android ###
+
+Duration: 4 days
+
+Suggested mentor: Gabor Szabo
+
+Perl can be used on Android via the SL4A
+http://code.google.com/p/android-scripting/ but it lacks good examples. You
+should setup Perl on the Android emulator, write several examples and
+submit them for inclusion in the SL4A repository.
+
+
+# Documentation #
+
+Tasks related to creating/editing documents.
+
+## Low Difficulty ##
+
+### Update Net::COLOURlovers documentation ###
+
+Duration: 2 days
+
+Mentor: Alan Haggai Alavi (alanhaggai@alanhaggai.org)
+
+Currently the documentation looks like an API methods list. Describe each method
+(possibly) and add example usage.
+
+### Fix a [perl5i documentation issue](https://github.com/schwern/perl5i/issues?labels=docs&sort=created&direction=desc&state=open&page=1) ###
+
+Duration: 2 days
+
+Suggested mentor: schwern@pobox.com
+
+perl5i could use some documentation work, including [restructuring the main
+documentation](https://github.com/schwern/perl5i/issues/207) and [making POD
+tags consistent](https://github.com/schwern/perl5i/issues/208).
+
+See the [list of documentation
+issues](https://github.com/schwern/perl5i/issues?labels=docs&sort=created&direction=desc&state=open&page=1).
+
+### [Document methods implemented by autobox::Core](https://github.com/scrottie/autobox-Core/issues/9) ###
+
+Duration: 2 days
+
+Suggested mentor: schwern@pobox.com
+
+perl5i gets a lot of functionality from autobox::Core.  autobox::Core has a lot
+of undocumented methods.
+
+Document the undocumented autobox::Core methods.  Do this work in autobox::Core,
+not perl5i.
+
+If you're feeling ambitious, the documentation could overall be made more
+consistent.
+
+### Improve Dancer documentation ###
+
+Suggested mentor: David Precious
+
+Duration: 2 days
+
+Read through the Dancer documentation from the point of view of a new user
+unaccustomed to the framework, and suggest improvements (clarifications,
+additional new-user tips, etc).
+
+### Write and publish a Perl language overview ###
+
+Duration: 3 days
+
+Suggested mentor: richard.foley@rfi.net
+
+Read through the online Perl documentation and write a one-page overview which describes the current state of perl-5, perl5i, strawberry-perl, perl-6, rakudo and other projects.  Which are production-ready, which development only, where to find more info, etc.  A sort of "don't be confused" page, "look here".
+
+### Update the perlfaq to use Web::Simple instead of CGI.pm ###
+
+Duration: 2 days
+
+Mentor: c.nehren@shadowcat.co.uk
+
+Count: 7
+
+The Web programming parts of the perlfaq (specifically, perlfaq9) are showing their age. They were written when CGI.pm was all we had, and it reflects poorly on Perl that we still point people to writing Web code this way today.
+
+This task involves grokking how the CGI.pm examples in the perlfaq work, learning Web::Simple and Plack well enough to write equivalent code, and then updating the docs with that code and corresponding walkthroughs.
+
+## Medium Difficulty ##
+
+### Ideas for creative usage of Net::COLOURlovers ###
+
+Duration: 2 days
+
+Mentor: Alan Haggai Alavi (alanhaggai@alanhaggai.org)
+
+Document possible creative usages of the module. For example: [The sample page
+for the module](http://bit.ly/qtIepU) can be used by designers to select random
+colours and patterns; maybe for making designer clothing. There certainly are
+many more ideas. Document them.
+
+###[perl5i: Rewrite perlfaq entries with perl5i](https://github.com/schwern/perl5i/issues/206) ###
+
+Duration: 2 days
+
+Suggested mentor: schwern@pobox.com
+
+All too often, simple questions have complicated answers in Perl.  Easy things
+are not as easy as they should be.  perl5i tries to make easy things easy, and
+let simple questions have simple answers.
+
+1. Find a question in the perlfaq whose answer is too complicated.
+
+2. Determine if it would be made simpler by using perl5i.
+
+3. Rewrite the answer using perl5i.
+
+4. Add it to the [perl5ifaq](https://github.com/schwern/perl5i/blob/master/lib/perl5ifaq.pod).
+
+In addition, you might come upon things which perl5i doesn't make easier *but
+could*.  [Please report that](https://github.com/schwern/perl5i/issues) and
+consider writing up a new feature.
+
+### Add pod documentation to the Devel-Trepan .pm files ###
+
+Duration: 4 days
+
+Mentor: Shlomi Fish
+
+Devel-Trepan is an enhanced and usable debugger for Perl 5. It is more gdb-like
+and contains an extensive API.
+
+Currently most lib/**/*.pm files lack POD documentation. This task will add POD
+to them and bring them closer to full POD coverage.
+
+### SpamAssassin Anti-Spam and Email Compendium ###
+
+Duration: 4 days
+
+We have written a compendium of various topics as a crash course for
+administrators and technical people looking to learn more about anti-spam.  It
+builds on
+http://spamassassin.apache.org/presentations/macsysadmin_2009_presentation_final_post.pdf
+and could use edits and reviews of existing edits to prepare a document for
+publication on SA's wiki.  It will also be an excellent introduction to
+anti-Spam.
+
+### [Prefer done_testing() in the Test::More documentation](https://github.com/schwern/test-more/issues/34) ###
+
+Duration: 2 days
+
+Mentor: schwern@pobox.com
+
+`done_testing()` is a feature which greatly simplifies test plan management.
+There is now no reason to use `no_plan` and few reasons to use `use Test::More
+tests => 123`.
+
+Rewrite the documentation to prefer `done_testing()` over `no_plan` or a static
+number of tests at the start.
+
+
+### Write A Catalyst Advent Calendar Article ###
+
+Duration: 3 days
+
+Mentor: dhoss@cpan.org
+
+Count: 24
+
+Every year the Catalyst development team gets people to write articles about the cool things they've done using Catalyst.  The task is to write an article on a new, fun or useful thing you've done with Catalyst.
+
+# Outreach #
+
+Tasks related to community management and outreach/marketing.
+
+## Medium Difficulty ##
+
+### Perl Tutorial Evaluation ###
+
+Suggested Mentor: Christian Walde
+
+There are many Perl tutorials available online.  Not all of them are of the quality from which we would like beginners to learn.
+
+Gather a list of such sites and provide a rough ranking of each in terms of usefulness, depth, freshness and any other useful criteria.
+
+The Perl community can use that list to promote sites useful to beginners, and to ask owners of less useful sites to update their content or link outwards.
+
+A website for this purpose has been set up at [perl-tutorial.org](http://perl-tutorial.org). A list of possible tasks to be done on there:
+
+- improve the site design, make it more slick and shiny
+
+- go through the list of uncurated tutorials and add them to the tables
+
+- find other tutorials on the web
+
+- reach out to the tutorial authors and ask them to update the site when they update the tutorials
+
+- maybe make detail pages for the tutorials themselves
+
+Inspired by [this blog post](http://blogs.perl.org/users/mithaldu/2011/10/perl-tutorials-suck-and-cause-serious-damage.html).
+
+### Creating a web design and other UI elements for Dwim Perl ###
+
+Duration: 5 days
+
+Suggested mentor: Gabor Szabo
+
+Dwim Perl is a Perl distribution (currently only for Windows) that is built upon
+the Strawberry Perl distribution.  It had a few releases under various names
+(e.g. Padre on Strawberry) and (Strawberry with Cream) but now we are moving
+away from those names. The new name will be Dwim Perl.  We need help in creating
+the web site (the one currently was created only to provide some context and
+some content).  including description of the content in this package.  We will
+also need a few icons to be used during installation and on the desktop.
+
+### Help out on the SpamAssassin mailing list ###
+
+Duration: 3 days
+
+Count: 5
+
+The mailing list for Users is always in need of people to lend a hand to new
+administrators running SpamAssassin.  Fighting Anti-Spam is complex and requires
+a good knowledge of many technologies, RFCs, acronyms and more.
+
+## High Difficulty ##
+
+### Creating a report of the "most interesting CPAN uploads" ###
+
+Duration: 3 days
+
+Suggested mentor: Gabor Szabo
+
+It would very useful for people to be able to watch what are the most
+interesting recent uploads to CPAN. This can be used by anyone, including the
+Perl Weekly to let people know what to check out.  What consists "most
+interesting" is of course debatable but here is what we would need: An open
+source perl script that would give a list of the CPAN modules uploaded in the
+last N days (N = 7)
+
+- Pick the most popular modules (based on +-es on MetaCPAN) that have a new
+release.
+
+- Pick the modules that most other modules rely on.  (similar to, or based on
+the Volatile 100 of Adam Kennedy http://ali.as/top100/index.html or by
+fetching the data from MetaCPAN)
+
+- Pick distributions where the distribution size changed the most (or relatively
+the most)
+
+- Pick distributions where the change diff is the largest in percentage of
+distribution size.
+
+- Pick the modules that did not have a new version for a long time but now they
+have one.
+
+- Pick modules that are new to CPAN
+
+It should be written in a way that it can be later integrated in MetaCPAN or
+elsewhere.
+
+### The Organisers Aid ###
+
+Duration: 6 days
+
+There are a growing number of sources of information from Blogs, to websites, to
+news outlets, to Twitter/Facebook and other social media sites along with Perl
+News and Perl Weekly, also there are usergroups and newsletters. An effort is
+being made to consolidate this information for easy distribution, a long way has
+been reached with Gabor's Perl Weekly.
+
+This task is to further discover how to make the Organisers' aid, a way of
+sifting and consolidating the information using rss/atom and import filters to
+make a collated list that Perl Community leaders can use to further disseminate
+and pass on information.
+
+There is no clear solution so the student will have to assess the current level
+of activity. Calculate the best manner in which to gather the information (need
+not create this element just determine the best way). Decide how that
+information can be analysed and displayed. Create a plan for implementing this.
+
+This task is to create the initial structure for a project outline, identifying
+the issues, the technology and organisation so that a further project can be
+made.
+
+More than one community member will have input and guidance and the Mentor will
+have at least one back-up mentor as this covers a vast area of expertise.
+
+# Quality Assurance #
+
+Tasks related to testing and ensuring code is of high quality.
+
+## General ##
+
+Perl has two main bug trackers.  [rt.perl.org](rt.perl.org) for core bugs and [rt.cpan.org](rt.cpan.org) for bugs in cpan modules.  We have some specific QA tasks listed here, and we will add more, and we will also be able to make a selection of tasks from RT available to students as required, along with appropriate mentors.
+
+## Medium Difficulty ##
+
+### Test and improve Dancer2 backwards compatibility ###
+
+Suggested mentor: David Precious
+
+Duration: 3 days
+
+Count: 10
+
+Dancer2 is a rewrite from scratch of the Dancer framework, whilst maintaining
+the same DSL and providing backwards compatibility.  Write a new test for backwards
+compatibility and fix any problems found.
+
+### [perlformance.net](perlformance.net): Polish build scripts ###
+
+Duration: 4 days.
+
+Mentor: Steffen Schwigon
+
+The perlformance scripts which build Perl from git, install dependencies from
+CPAN and run a benchmark suite need a little polish.
+
+Get to know perl's build process from the existing scripts and understand CPAN
+details including the distroprefs mechanism.  Then ensure the scripts work
+over multiple releass of perl, from 5.8.0 up to the current 5.14.2 release.
+
+### [perlformance.net](perlformance.net): Benchmark::Perl::Formance ###
+
+Duration: 3 days.
+
+Mentor: Steffen Schwigon
+
+The Benchmark::Perl::Formance module needs some work to ensure it sends
+correct results in all its TAP output.
+
+TAP is the Test Anything Protocol which is used in Perl and other projects to
+describe test output.
+#
+## High Difficulty ##
+
+### Synchronise a core module with CPAN ###
+
+Suggested mentor: Florian Ragwitz
+
+Duration: 4 days
+
+Count: 5
+
+Many of the modules bundled with the Perl Core are also available separately
+from CPAN and merely synched between the two.
+
+That sometimes ends up with the two sources diverging slightly, which can be a
+huge hindrance for maintenance.
+
+Use the Porting/core-cpan-diff tool provided in the core to locate a Module with
+a divergence between the core and CPAN, and try to get them back into sync,
+either by working towards getting changes in the core included in the CPAN
+version, or by integrating changes originating from CPAN back into the core.
+
+Suggested modules:
+
+- Tie::File (core: 0.97, CPAN: 0.96 (broken))
+
+### Prepare first 100% open-source public release of LunapCMS ###
+
+Duration: 7 days
+
+Suggested mentor: kevin.mcgrail-enlightenedperl@pccc.com
+
+The LunpaCMS project is a CMS written in Perl.  Unlike many CMS projects, it is
+designed to provide a flexible framework with a "version-less" deployment that
+aims to support many sites with a single installation per server that is
+upgradeable with a simple svn update command.
+
+The project has powered a number of projects for publicly-traded firms and has
+been in live-use for well over a decade.  It was always intended to be
+open-source, however, it has never been released formally due to contractual
+obligations and the quagmire of licensing issues (we renamed it from PerlCMS,
+for example).
+
+We would like to finish the goal of releasing this for the good of the Perl
+programming public but need more pairs of eyes in reviewing the code for
+release.
+
+We would especially like someone to install, review the SQL queries, attempt
+injection attacks, make sure all web-based input is sanitized well, and
+generally try and ensure that it's ready to switch from obscurity to public
+without endangering sites that use it.
+
+### Fix A SpamAssassin Bug ###
+
+Duration: 3 days
+
+Suggested mentor: kevin.mcgrail-enlightenedperl@pccc.com
+
+Count: 10
+
+Pick a bug from
+https://issues.apache.org/SpamAssassin/buglist.cgi?query_format=specific&order=relevance
+desc&bug_status=__open__ and fix it.
+
+### Audit the Perl core for unused lexical variables
+
+Suggested mentor: Florian Ragwitz
+
+Duration: 6 days
+
+Come up with an automated way of finding unused lexical variables in the Perl core. Test::Vars, Perl::Critic and warnings::unused might be helpful for this.
+
+The aim is to provide instructions to a human auditor, not to automate the cleanup.
+
+# Research #
+
+Tasks related to studying a problem and recommending solutions.
+
+## Low Difficulty ##
+
+### Investigate the viability of including Unicode::GCString in the Perl core ###
+
+Suggested mentor: Florian Ragwitz
+
+Duration: 5 days
+
+On the Perl 5 Porters list, there have been discussions about including the
+Unicode::GCString module from CPAN in the Perl core.
+
+In order for that to happen, we need to find out what the possible implications
+might be, including, but not limited to, the current portability of the module
+and, if it isn't as portable as the core right now, what needs to be done to
+make it so, and the author's opinion on the inclusion.
+
+###[perl5i: Methods to weaken a reference](https://github.com/schwern/perl5i/issues/151) ###
+
+Duration: 3 days
+
+Suggested mentor: schwern@pobox.com
+
+Add $ref->weaken and $ref->is_weak as wrappers around Scalar::Util. Mostly because Chip held weaken() up as a silly use of OO and it turns out its a really good one. :)
+
+Trouble is, the autobox interface doesn't provide us with a way to tell the difference between @array->weaken and $array->weaken. I'm happy with it just being a "don't do that".
+
+###[perl5i: Use 5.12 "unicode_strings" feature](https://github.com/schwern/perl5i/issues/141) ###
+
+Duration: 2 days
+
+Suggested mentor: schwern@pobox.com
+
+rjbs says there's pretty much no reason not to use the 5.12 "unicode_strings" feature, so maybe we should use it on 5.12. I haven't evaluated it, but rjbs is usually right.
+
+## Medium Difficulty ##
+
+### Make the MediaWiki::Bot test suite more robust ###
+
+Duration: 2 days
+
+mentor: Mike Doherty
+
+Currently, the test suite for MediaWiki::Bot is failing, and it isn't clear
+whether this is caused by an error with the wiki the test suite uses, a bug in
+the test suite, or a bug in the module. This project involves determining where
+the errors are, and possibly fixing them.
+
+### Make Ubic compatible with Solaris ###
+
+Suggested mentor: Vyacheslav Matyukhin
+
+Duration: 2 days
+
+Test suite for Ubic is failing on Solaris because some kind of incompatibility
+of Solaris's ps command with POSIX. You'll have to install Solaris in vmware (or
+other virtualization software), figure out what's wrong and fix it.  Benefits:
+we'll be able to claim that Ubic works on all *nix systems.  Requirements:
+experience with vmware and *nix systems will help, but completely optional.
+
+###[perl5i: Steal from Moose::Autobox](https://github.com/schwern/perl5i/issues/110) ###
+
+Duration: 3 days
+
+Suggested mentor: schwern@pobox.com
+
+Look through it for good ideas. Glancing through it...
+
+@A->tail($how_many);<br>
+%h->hslice(@Keys);
+
+Maybe stuff in Moose::Autobox::CODE if you can figure out what it does.
+
+## High Difficulty ##
+
+### SpamAssassin Website Migration ###
+
+Duration: 6 days
+
+Suggested mentor: kevin.mcgrail-enlightenedperl@pccc.com
+
+The website for the project does not currently use the ASF Website
+infrastructure - See http://www.apache.org/dev/cms.html Reading this
+documentation and reviewing the current website code to identify tasks to
+achieve the switch over would be ideal.
+
+### Investigate the possibility of declaring conflicting dependencies for CPAN modules ###
+
+Suggested mentor: Florian Ragwitz
+
+Duration: 7 days
+
+Currently the CPAN toolchain doesn't really support any kind of dependency other
+than '>= VERSION'. Specifically, there's no way to declare that one module
+changed incompatibly and that it will break certain other modules that might
+already be installed, or that these modules need to be upgraded to a certain
+version after installing the breaking module.
+
+Module authors came up with several workarounds for this issue, but none of them
+seem be adopted widely or actually fix this issue for users.
+
+Investigate what it'd take to make our module toolchain handle these kinds of
+updates in a more user-friendly way.
+
+# Training #
+
+Tasks related to helping others learn more.
+
+## Low Difficulty ##
+
+### Create a Catalyst Cheat Sheet ###
+
+Suggested mentor: Chisel Wright
+
+Duration: 3 days
+
+Catalyst has quite a big API, but most of the time people only use a tiny subset
+of it. In order to find the tiny subset they actually require for their work,
+they still need to wade through the massive amount of Catalyst documentation.
+
+Having a cheat sheet page would help a lot of users to find what they're after
+more quickly.
+
+It should include at least all the built-in attributes, including all the
+dispatching mechanisms, as well as the most important methods for the request
+context, the request object, and the response object.
+
+### Write simple open source Mojolicious examples ###
+
+Suggested mentor: Marcus Ramberg
+
+Duration: 4 days
+
+We'd love to see more simple open source examples for Mojolicious, of
+traditional apps like wikis, blogs and database admin tools or a real time app
+like a chat server or a web interface to control your lego robot or cat litter.
+
+## Medium Difficulty ##
+
+### Record Ubic tutorial screencast ###
+
+Suggested mentor: Vyacheslav Matyukhin
+
+Duration: 3 days
+
+Retell [Ubic::Manual::Intro](https://metacpan.org/module/Ubic::Manual::Intro) in
+video form and put it online.  Requirements: you'll need a mike to record sound;
+previous experience screencast recording software will obviously help.
+
+### Make sure the Moose training material is up to date ###
+
+Suggested Mentor: Mark Gardner
+
+Duration: 4 days
+
+The Moose training class material in
+http://git.shadowcat.co.uk/gitweb/gitweb.cgi?p=gitmo/moose-presentations.git;a=summary
+has been written some time ago. Your task is to make sure that the code examples
+in there still work without raising any deprecation warnings, and that the
+document generally represents the latest way of doing things with Moose.
+
+### Plack::Middleware::Auth::Form example code for one of the main Perl web frameworks ###
+
+Duration: 3 days
+
+Suggested mentor: Tadeusz Sośnierz (tadzikes@gmail.com)
+
+[Plack::Middleware::Auth::Form](http://search.cpan.org/perldoc?Plack::Middleware::Auth::Form) is an authentication component for web
+applications that works on the level of Plack middleware and thus is framework
+independent. The idea is to have web app components that would be as universal
+as possible. We need example code showing how it can be used in the main Perl
+web frameworks like Dancer, Mojolicious, Catalyst and others.
+
+## High Difficulty ##
+
+### Write and record Moose screencasts ###
+
+Suggested Mentor: Daniel Woods
+
+Duration: 4 days
+
+Moose has a very rich ecosystem around it, and for many it's hard to keep track
+of what's out there.  The goal of this task is to raise awareness for certain
+very useful but not terribly well known modules in the Moose extension namespace
+MooseX::.
+
+For that, find one or more of these modules, for example by having a chat about
+it with the Moose community, think of a practical use case for it, and produce a
+screencast illustrating how the modules helps solving the task.
+
+# Translation #
+
+Tasks related to localization.
+
+## Low Difficulty ##
+
+### Update translations for Padre ###
+
+Duration: 3 days
+
+Padre, the Perl IDE http://padre.perlide.org/ has its UI in several languages
+but most of the translations are not up-to-date.  The table at
+http://perlide.org/translations/ shows the status of the various languages.  The
+languages that we currently have are: Arabic, Czech, German, Spanish, Persian,
+French, Hebrew, Hungarian, Italian, Japanese, Korean, Dutch, Norwegian, Polish,
+Portuguese, Russian, Turkish, Chinese Traditional and Simplified.  From these
+the German, French and Japanese are almost up to date so the others would be
+more important.
+
+### Update an [OpenWebMail](http://openwebmail.acatysmoof.com) translation ###
+
+Duration: 2 days
+
+Mentor: openwebmail@acatysmoof.com
+
+OpenWebMail translation is handled through PO files. PO files are very easy to
+work with by using the POEdit software. By following our [simple
+instructions](http://openwebmail.acatysmoof.com/doc/tech/i18n) anyone can update
+an existing translation with very little technical know-how.
+
+### Create an [OpenWebMail](http://openwebmail.acatysmoof.com) translation ###
+
+Duration: 2 days
+
+Mentor: openwebmail@acatysmoof.com
+
+OpenWebMail translation is handled through PO files. PO files are very easy to
+work with by using the POEdit software. By following our [simple
+instructions](http://openwebmail.acatysmoof.com/doc/tech/i18n) anyone can create
+a translation with very little technical know-how.
+
+## Medium Difficulty ##
+
+### Translate the Moose website into a new language ###
+
+Duration: 3 days
+
+Currently the only available translations are English and German. We'd love to
+have some more coverage.
+
+The website repository is available at git.shadowcat.co.uk as moose-website.git.
+
+### Translate a Mojolicious Guide ###
+
+Suggested mentor: Marcus Ramberg
+
+Duration: 3 days
+
+The mojolicious guides (http://mojolicio.us/perldoc were originally founded by
+the Perl Foundation and has already been translated to Russian
+(https://github.com/xoma/Russian-translate-of-Mojolicious-guides) and japanese
+(https://github.com/yuki-kimoto/mojolicious-guides-japanese/wiki). We would love
+to see more translations of these:
+
+- {{cpan Mojolicious::Guides::Growing}}
+
+- {{cpan Mojolicious::Guides::Routing}}
+
+- {{cpan Mojolicious::Guides::Rendering}}
+
+- {{cpan Mojolicious::Guides::Cookbook}}
+
+- {{cpan Mojolicious::Guides::Cheatsheet}}
+
+- {{cpan Mojolicious::Guides::FAQ}}
+
+- {{cpan Mojolicious::Guides::CodingGuidelines}}
+
+### Transcribe and/or translate Perl screencasts ###
+
+Duration: 2 days
+
+I have several screencasts on YouTube presenting Perl 5 and Perl 6 given in
+English. Some of them already have English subtitles, some of them even have
+subtitles in other languages. It would be nice to have English transcriptions
+for all the recordings and subtitles in major languages used on the Internet:
+(Chinese (Mandarin), Spanish, Japanese, Portuguese, German, Arabic, French,
+Russian, Korean, Italian)
+
+YouTube channel: http://www.youtube.com/gabor529
+
+Github repository of the project: https://github.com/szabgab/screencasts
+
+## High Difficulty ##
+
+# User Interface #
+
+Tasks related to user experience research or user interface design and
+interaction.
+
+## Low Difficulty ##
+
+### Figure out a way for MetaCPAN to display an author's perlmonger groups on his author page ###
+
+Suggested Mentor: Florian Ragwitz
+
+Duration: 2 days
+
+Every CPAN author has a customisable page at
+https://metacpan.org/author/$author_id. All authors can change the information
+displayed on their page by logging into CPAN.
+
+The previous task is supposed to allow authors to specify which Perlmonger
+groups they associate themself with. This task is about figuring out how to
+actually display that author-provided data on the publically accessible author
+profile pages.
+
+### Display the bug summary on the MetCPAN distribution overview page ###
+
+Suggested Mentor: Florian Ragwitz
+
+Duration: 2 days
+
+This is the continuation of a previous coding task on adding bug summary data to the MetaCPAN index and consists of coming up with a
+nice way of showing the new bug data in the index and implementing it.
+
+
+## Medium Difficulty ##
+
+### Write the web frontend for authors to provide ther Perlmonger group affiliations on MetaCPAN ###
+
+Suggested Mentor: Florian Ragwitz
+
+Duration: 2 days
+
+Every CPAN author has a customisable page at
+https://metacpan.org/author/$author_id. All authors can change the information
+displayed on their page by logging into CPAN. On that account editing page,
+there's currently no way to specify the list of perlmonger groups as well as
+their URLs.
+
+The HTML and JavaScript code to do that needs to be written.
+
+
+### Create JavaScript Release Widget/Badge for MetaCPAN ###
+
+Suggested mentor: Olaf Alders
+
+Duration: 2 days
+
+Design a widget/badge which uses JavaScript to query the MetaCPAN API for the
+latest information on a release, eg:
+[http://api.beta.metacpan.org/v0/release/App-cpanminus](http://api.beta.metacpan.org/v0/release/App-cpanminus)
+
+The badge should include: author, date, distribution name, version, a link to
+the direct download URL as well as a link to the MetaCPAN release page.
+
+This badge could then be used on web sites for Perl projects which exist on
+CPAN.  It will always be in sync with the latest upload for a project, so it's
+useful for keeping up with version numbers as well as providing links to the
+official documentation which exists on MetaCPAN.
+
+### New Icon Sets for [OpenWebMail](http://openwebmail.acatysmoof.com) ###
+
+Duration: 4 days
+
+Mentor: openwebmail@acatysmoof.com
+
+We're always interested in new icon sets. You can start with the [example
+iconset](http://openwebmail.acatysmoof.com/doc/tech/customizing/iconsets/silk/silk.htm)
+and change the icons in a paint program like Adobe Photoshop to make your own
+set. Adaptations of existing open source iconsets are also welcome. Images in
+the iconsets can be jpg, gif, or png files. You can visit our [test
+installation](http://openwebmail.acatysmoof.com/testing) to see how and where
+the icons are used in the interface.
+
+### Design for enlightenedperl.org ###
+
+Duration: 2 days
+
+A number of Perl sites have received facelifts in recent months and this greatly
+contributes towards the promotion of Perl and keeping the community looking
+fresh.
+
+The Enlightened Perl Organisation need a design that encomapses the varied tasks
+they perform and implements modern web technologies to provide Facebook, Twitter
+and community site integration so that they can further promote this community
+organisation.
+
+### Design for Jobs.perl.org ###
+
+Duration: 2 days
+
+A number of Perl sites have received facelifts in recent months and this greatly
+contributes towards the promotion of Perl and keeping the community looking
+fresh.
+
+Jobs.Perl.org needs a new look which will mean canvassing ideas of how to
+organise and display the current material and present it a contemporary design.
+
+## High Difficulty ##
+
+### HTML update for [OpenWebMail](http://openwebmail.acatysmoof.com) ###
+
+Duration: 5 days
+
+Mentor: openwebmail@acatysmoof.com
+
+Our system now supports complete separation of logic and presentation, so our
+layouts need updating. Our HTML is still using table based layouts. A student
+familiar with HTML can take our table based [classic layout
+set](http://openwebmail.acatysmoof.com/dev/svnweb/index.pl/openwebmail/browse/trunk/src/data/openwebmail/layouts/classic)
+with HTML::Template markup and create a new div based layout. Try one or several
+different areas of our interface, such as the calendar or the webdisk.
+
+The student working on this project will be provided with an area where they can
+upload their layout for testing.
